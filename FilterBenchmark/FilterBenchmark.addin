@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command FilterBenchmark</Text>
+    <Description>Some description for FilterBenchmark</Description>
+    <Assembly>FilterBenchmark.dll</Assembly>
+    <FullClassName>FilterBenchmark.Command</FullClassName>
+    <ClientId>fef64132-f580-4d6d-806e-2250d828082f</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
