@@ -16,13 +16,13 @@ namespace FilterBenchmark
 {
   class Draw_Section
   {
-    static public void Draw( 
+    static public void Draw(
       Document doc,
-      Element ele, 
+      Element ele,
       string Section_Name,
       double LeftOffset,
       double RightOffset,
-      double TopOffset, 
+      double TopOffset,
       double BottomOffset,
       double NearClipOffset,
       double FarClipOffset )
@@ -62,7 +62,7 @@ namespace FilterBenchmark
       Document doc = uidoc.Document;
       Selection sel = uidoc.Selection;
 
-      TaskDialog.Show( "BuilDTecH Architects", 
+      TaskDialog.Show( "BuilDTecH Architects",
         "BuilDTecH Architects by Sudhan" );
 
       InputData InputData = new InputData();
@@ -84,25 +84,25 @@ namespace FilterBenchmark
       {
         Timer floortimeLinq1 = new Timer();
         floortimeLinq1.Start();
-        IEnumerable<Element> elems = Linq1( doc, 
-          BuiltInCategory.OST_ElectricalEquipment, 
+        IEnumerable<Element> elems = Linq1( doc,
+          BuiltInCategory.OST_ElectricalEquipment,
           ElectricalEquipment );
 
         floortimeLinq1.Stop();
-        TaskDialog.Show( "time", "LINQ1 Method Time = " 
+        TaskDialog.Show( "time", "LINQ1 Method Time = "
           + floortimeLinq1.Duration.ToString()
           + " No. of Elements = " + elems.Count().ToString() );
 
         elems = null;
         Timer floortimeLinq2 = new Timer();
         floortimeLinq2.Start();
-        elems = Linq2( doc, 
-          BuiltInCategory.OST_ElectricalEquipment, 
+        elems = Linq2( doc,
+          BuiltInCategory.OST_ElectricalEquipment,
           ElectricalEquipment );
 
         floortimeLinq2.Stop();
-        TaskDialog.Show( "time", "LINQ2 Method Time = " 
-          + floortimeLinq2.Duration.ToString() 
+        TaskDialog.Show( "time", "LINQ2 Method Time = "
+          + floortimeLinq2.Duration.ToString()
           + " No. of Elements = " + elems.Count().ToString() );
 
         elems = null;
@@ -110,25 +110,25 @@ namespace FilterBenchmark
         Timer floortimeFilterRule = new Timer();
         floortimeFilterRule.Start();
         elems = FilterRule( doc, // uidoc.ActiveView.Id,
-          BuiltInCategory.OST_ElectricalEquipment, 
+          BuiltInCategory.OST_ElectricalEquipment,
           ElectricalEquipment );
 
         floortimeFilterRule.Stop();
         TaskDialog.Show( "time", "Filter Rule Method Time = "
-          + floortimeFilterRule.Duration.ToString() 
+          + floortimeFilterRule.Duration.ToString()
           + " No. of Elements = " + elems.Count().ToString() );
         elems = null;
 
         Timer floortimeFactoryRule = new Timer();
         floortimeFactoryRule.Start();
 
-        elems = Factory( doc, 
-          BuiltInCategory.OST_ElectricalEquipment, 
+        elems = Factory( doc,
+          BuiltInCategory.OST_ElectricalEquipment,
           ElectricalEquipment );
 
         floortimeFactoryRule.Stop();
 
-        TaskDialog.Show( "time", " Factory Rule Method Time = " 
+        TaskDialog.Show( "time", " Factory Rule Method Time = "
           + floortimeFactoryRule.Duration.ToString()
           + " No. of Elements = " + elems.Count().ToString() );
       }
@@ -137,21 +137,21 @@ namespace FilterBenchmark
         TaskDialog td = new TaskDialog( "Element By Element" );
         td.Title = "Want to Continue";
         td.MainInstruction = "Do you want to create a new section";
-        td.CommonButtons = TaskDialogCommonButtons.Yes 
+        td.CommonButtons = TaskDialogCommonButtons.Yes
           | TaskDialogCommonButtons.No;
         td.DefaultButton = TaskDialogResult.Yes;
         bool next = true;
         while( next )
         {
-          ISelectionFilter selFilter 
+          ISelectionFilter selFilter
             = new FamilySelectionFilter( doc,
               BuiltInCategory.OST_ElectricalEquipment,
               ElectricalEquipment );
-          Reference refe = sel.PickObject( 
+          Reference refe = sel.PickObject(
             ObjectType.Element, selFilter, "Select Object" );
           Element ele = doc.GetElement( refe );
-          Draw_Section.Draw( doc, ele, Section_Name, 
-            LeftOffset, RightOffset, TopOffset, BottomOffset, 
+          Draw_Section.Draw( doc, ele, Section_Name,
+            LeftOffset, RightOffset, TopOffset, BottomOffset,
             NearClipOffset, FarClipOffset );
 
           TaskDialogResult tdRes = td.Show();
@@ -168,12 +168,12 @@ namespace FilterBenchmark
           ElectricalEquipment );
         floortimeFactoryRule.Stop();
         TaskDialog.Show( "time", " Factory Rule Method Time = "
-          + floortimeFactoryRule.Duration.ToString() 
+          + floortimeFactoryRule.Duration.ToString()
           + " No. of Elements = " + elems.Count().ToString() );
         foreach( Element ele in elems )
         {
-          Draw_Section.Draw( doc, ele, Section_Name, 
-            LeftOffset, RightOffset, TopOffset, BottomOffset, 
+          Draw_Section.Draw( doc, ele, Section_Name,
+            LeftOffset, RightOffset, TopOffset, BottomOffset,
             NearClipOffset, FarClipOffset );
         }
       }
@@ -184,9 +184,9 @@ namespace FilterBenchmark
       Document Doc;
       string FmlyName = "";
       int BultCatId;
-      public FamilySelectionFilter( 
-        Document doc, 
-        BuiltInCategory BuiltInCat, 
+      public FamilySelectionFilter(
+        Document doc,
+        BuiltInCategory BuiltInCat,
         string familyTypeName )
       {
         Doc = doc;
@@ -259,6 +259,7 @@ namespace FilterBenchmark
     }
     #endregion // Retrieve named family symbols using either LINQ or a parameter filter
 
+    #region Timer
     public class Timer
     {
       [DllImport( "Kernel32.dll" )]
@@ -315,6 +316,6 @@ namespace FilterBenchmark
         }
       }
     }
+    #endregion // Timer
   }
-
 }
