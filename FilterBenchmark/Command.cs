@@ -1,23 +1,31 @@
 #region Namespaces
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System.Linq;
-using System.ComponentModel;
 #endregion
 
 namespace FilterBenchmark
 {
   class Draw_Section
   {
-    static public void Draw( Document doc, Element ele, string Section_Name, double LeftOffset, double RightOffset, double TopOffset, double BottomOffset, double NearClipOffset, double FarClipOffset )
+    static public void Draw( 
+      Document doc,
+      Element ele, 
+      string Section_Name,
+      double LeftOffset,
+      double RightOffset,
+      double TopOffset, 
+      double BottomOffset,
+      double NearClipOffset,
+      double FarClipOffset )
     {
 
     }
@@ -76,53 +84,76 @@ namespace FilterBenchmark
       {
         Timer floortimeLinq1 = new Timer();
         floortimeLinq1.Start();
-        IEnumerable<Element> elems = Linq1( doc, BuiltInCategory.OST_ElectricalEquipment, ElectricalEquipment );
+        IEnumerable<Element> elems = Linq1( doc, 
+          BuiltInCategory.OST_ElectricalEquipment, 
+          ElectricalEquipment );
+
         floortimeLinq1.Stop();
-        TaskDialog.Show( "time", "LINQ1 Method Time = " + floortimeLinq1.Duration.ToString() +
-        " No. of Elements = " + elems.Count().ToString() );
+        TaskDialog.Show( "time", "LINQ1 Method Time = " 
+          + floortimeLinq1.Duration.ToString()
+          + " No. of Elements = " + elems.Count().ToString() );
 
         elems = null;
         Timer floortimeLinq2 = new Timer();
         floortimeLinq2.Start();
-        elems = Linq2( doc, BuiltInCategory.OST_ElectricalEquipment, ElectricalEquipment );
+        elems = Linq2( doc, 
+          BuiltInCategory.OST_ElectricalEquipment, 
+          ElectricalEquipment );
+
         floortimeLinq2.Stop();
-        TaskDialog.Show( "time", "LINQ2 Method Time = " + floortimeLinq2.Duration.ToString() +
-        " No. of Elements = " + elems.Count().ToString() );
+        TaskDialog.Show( "time", "LINQ2 Method Time = " 
+          + floortimeLinq2.Duration.ToString() 
+          + " No. of Elements = " + elems.Count().ToString() );
+
         elems = null;
 
         Timer floortimeFilterRule = new Timer();
         floortimeFilterRule.Start();
         elems = FilterRule( doc, // uidoc.ActiveView.Id,
-          BuiltInCategory.OST_ElectricalEquipment, ElectricalEquipment );
+          BuiltInCategory.OST_ElectricalEquipment, 
+          ElectricalEquipment );
+
         floortimeFilterRule.Stop();
-        TaskDialog.Show( "time", "Filter Rule Method Time = " + floortimeFilterRule.Duration.ToString() +
-        " No. of Elements = " + elems.Count().ToString() );
+        TaskDialog.Show( "time", "Filter Rule Method Time = "
+          + floortimeFilterRule.Duration.ToString() 
+          + " No. of Elements = " + elems.Count().ToString() );
         elems = null;
 
         Timer floortimeFactoryRule = new Timer();
         floortimeFactoryRule.Start();
-        elems = Factory( doc, BuiltInCategory.OST_ElectricalEquipment, ElectricalEquipment );
+
+        elems = Factory( doc, 
+          BuiltInCategory.OST_ElectricalEquipment, 
+          ElectricalEquipment );
+
         floortimeFactoryRule.Stop();
-        TaskDialog.Show( "time", " Factory Rule Method Time = " + floortimeFactoryRule.Duration.ToString() +
-        " No. of Elements = " + elems.Count().ToString() );
+
+        TaskDialog.Show( "time", " Factory Rule Method Time = " 
+          + floortimeFactoryRule.Duration.ToString()
+          + " No. of Elements = " + elems.Count().ToString() );
       }
       else if( data[0].Equals( InputData.Option.BySingle ) )
       {
         TaskDialog td = new TaskDialog( "Element By Element" );
         td.Title = "Want to Continue";
         td.MainInstruction = "Do you want to create a new section";
-        td.CommonButtons = TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No;
+        td.CommonButtons = TaskDialogCommonButtons.Yes 
+          | TaskDialogCommonButtons.No;
         td.DefaultButton = TaskDialogResult.Yes;
         bool next = true;
         while( next )
         {
-          ISelectionFilter selFilter = new FamilySelectionFilter(
-          doc,
-          BuiltInCategory.OST_ElectricalEquipment,
-          ElectricalEquipment );
-          Reference refe = sel.PickObject( ObjectType.Element, selFilter, "Select Object" );
+          ISelectionFilter selFilter 
+            = new FamilySelectionFilter( doc,
+              BuiltInCategory.OST_ElectricalEquipment,
+              ElectricalEquipment );
+          Reference refe = sel.PickObject( 
+            ObjectType.Element, selFilter, "Select Object" );
           Element ele = doc.GetElement( refe );
-          Draw_Section.Draw( doc, ele, Section_Name, LeftOffset, RightOffset, TopOffset, BottomOffset, NearClipOffset, FarClipOffset );
+          Draw_Section.Draw( doc, ele, Section_Name, 
+            LeftOffset, RightOffset, TopOffset, BottomOffset, 
+            NearClipOffset, FarClipOffset );
+
           TaskDialogResult tdRes = td.Show();
           if( tdRes == TaskDialogResult.No )
           { next = false; }
@@ -132,13 +163,18 @@ namespace FilterBenchmark
       {
         Timer floortimeFactoryRule = new Timer();
         floortimeFactoryRule.Start();
-        IEnumerable<Element> elems = Factory( doc, BuiltInCategory.OST_ElectricalEquipment, ElectricalEquipment );
+        IEnumerable<Element> elems = Factory( doc,
+          BuiltInCategory.OST_ElectricalEquipment,
+          ElectricalEquipment );
         floortimeFactoryRule.Stop();
-        TaskDialog.Show( "time", " Factory Rule Method Time = " + floortimeFactoryRule.Duration.ToString() +
-        " No. of Elements = " + elems.Count().ToString() );
+        TaskDialog.Show( "time", " Factory Rule Method Time = "
+          + floortimeFactoryRule.Duration.ToString() 
+          + " No. of Elements = " + elems.Count().ToString() );
         foreach( Element ele in elems )
         {
-          Draw_Section.Draw( doc, ele, Section_Name, LeftOffset, RightOffset, TopOffset, BottomOffset, NearClipOffset, FarClipOffset );
+          Draw_Section.Draw( doc, ele, Section_Name, 
+            LeftOffset, RightOffset, TopOffset, BottomOffset, 
+            NearClipOffset, FarClipOffset );
         }
       }
       return Result.Succeeded;
