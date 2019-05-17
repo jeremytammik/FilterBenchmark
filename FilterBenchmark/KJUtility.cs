@@ -23,14 +23,14 @@ using Autodesk.Revit.UI.Selection;
 using System.Resources;
 using System.Reflection;
 using System.Drawing;
-using System.Windows.Media.Imaging;
-using System.Windows.Interop;
+//using System.Windows.Media.Imaging;
+//using System.Windows.Interop;
 using WPF = System.Windows;
 using System.Linq;
 using SWF = System.Windows.Forms;
-using Arciviz.KJUtility;
+//using Arciviz.KJUtility;
 #endregion
-namespace Arciviz.KJUtility
+namespace FilterBenchmark
 {
 
     public class KJUtility

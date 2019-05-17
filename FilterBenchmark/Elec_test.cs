@@ -8,7 +8,8 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.DB.Architecture;
-using KJU = Arciviz.KJUtility.KJUtility;
+//using KJU = Arciviz.KJUtility.KJUtility;
+using KJU = FilterBenchmark.KJUtility;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
@@ -18,7 +19,7 @@ using System.Threading;
 
 #endregion
 
-namespace Elec_Test
+namespace FilterBenchmark
 {
   [Transaction(TransactionMode.Manual)]
   public class Elec_test : IExternalCommand

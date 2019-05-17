@@ -12,6 +12,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 #endregion
 
+#if JEREMY_CODE
 namespace FilterBenchmark
 {
   class Draw_Section
@@ -207,7 +208,7 @@ namespace FilterBenchmark
       }
     }
 
-    #region Retrieve named family type using either LINQ or a parameter filter 
+#region Retrieve named family type using either LINQ or a parameter filter 
     static IEnumerable<Element> Linq1(
     Document doc,
     BuiltInCategory BultCat,
@@ -257,9 +258,9 @@ namespace FilterBenchmark
       ParameterFilterRuleFactory.CreateEqualsRule(
       new ElementId( BuiltInParameter.ELEM_FAMILY_PARAM ), familyTypeName, true ) ) );
     }
-    #endregion // Retrieve named family symbols using either LINQ or a parameter filter
+#endregion // Retrieve named family symbols using either LINQ or a parameter filter
 
-    #region Timer
+#region Timer
     public class Timer
     {
       [DllImport( "Kernel32.dll" )]
@@ -316,6 +317,7 @@ namespace FilterBenchmark
         }
       }
     }
-    #endregion // Timer
+#endregion // Timer
   }
 }
+#endif // JEREMY_CODE

@@ -1,4 +1,4 @@
-﻿namespace Elec_Test
+﻿namespace FilterBenchmark
 {
   partial class InputData
   {
