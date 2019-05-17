@@ -22,7 +22,7 @@ using System.Threading;
 namespace FilterBenchmark
 {
   [Transaction(TransactionMode.Manual)]
-  public class Elec_test : IExternalCommand
+  public class Command : IExternalCommand
   {
     public Result Execute(
       ExternalCommandData commandData,

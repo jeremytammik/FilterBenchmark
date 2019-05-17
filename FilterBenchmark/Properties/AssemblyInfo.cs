@@ -36,7 +36,7 @@ using System.Runtime.InteropServices;
 // History:
 //
 // 2019-05-16 2020.0.0.0 jeremy skeleton and code from comment 
-// 2019-05-17 2020.0.0.1 integrated code by sudhan from forked repo 
+// 2019-05-17 2020.0.0.1 integrated code by sudhan from forked repo
 //
 [assembly: AssemblyVersion( "2020.0.0.1" )]
 [assembly: AssemblyFileVersion( "2020.0.0.1" )]
